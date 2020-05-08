@@ -11,14 +11,8 @@ def index():
         "username": "Alessandro",
     }
     posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
+        {"author": {"username": "John"}, "body": "Beautiful day in Portland!"},
+        {"author": {"username": "Susan"}, "body": "The Avengers movie was so cool!"},
     ]
     return render_template("index.html", user=user, posts=posts)
 
@@ -27,6 +21,8 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        flash(f"User {form.username.data} signed in (remember me = {form.remember_me.data}).")
+        flash(
+            f"User {form.username.data} signed in (remember me = {form.remember_me.data})."
+        )
         return redirect(url_for("index"))
     return render_template("login.html", title="Sign In", form=form)

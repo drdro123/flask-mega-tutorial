@@ -4,7 +4,10 @@
             <img src="{{ post.author.avatar(36) }}">
         </td>
         <td>
-            {{ post.author.username }} says <br><i>{{ post.body }}</i>
+            <a href="{{ url_for('user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>
+            says <br><i>{{ post.body }}</i>
         </td>
     </tr>
 </table>

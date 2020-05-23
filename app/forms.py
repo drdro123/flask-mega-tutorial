@@ -28,6 +28,10 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError("Username already exists.")
 
 
+class EmptyForm(FlaskForm):
+    submit = SubmitField("Submit")
+
+
 class RegistrationForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])

@@ -112,3 +112,5 @@ env.sh
 
 # VS Code
 .vscode/
+
+logs/

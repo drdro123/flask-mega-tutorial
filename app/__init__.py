@@ -4,6 +4,7 @@ import os
 
 from flask import Flask
 from flask_login import LoginManager
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -17,6 +18,8 @@ login.login_view = "login"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+mail = Mail(app)
 
 from app import errors, routes, models  # noqa: F402,F401
 

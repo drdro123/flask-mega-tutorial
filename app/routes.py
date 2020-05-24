@@ -5,8 +5,17 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from app import app, db
-from app.forms import EditProfileForm, EmptyForm, LoginForm, PostForm, RegistrationForm
+from app.forms import (
+    EditProfileForm,
+    EmptyForm,
+    LoginForm,
+    PostForm,
+    RegistrationForm,
+    ResetPasswordRequestForm,
+    ResetPasswordForm,
+)
 from app.models import Post, User
+from app.email import send_password_reset_email
 
 
 @app.before_request
@@ -189,6 +198,36 @@ def register():
         flash("Congratulations, you have registered successfully!")
         return redirect(url_for("login"))
     return render_template("register.html", title="Register", form=form)
+
+
+@app.route("/reset_password_request", methods=["GET", "POST"])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash("Check your email for instructions on resetting your password.")
+        return redirect(url_for("index"))
+    return render_template("reset_password_request.html", form=form)
+
+
+@app.route("/reset_password/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for("index"))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash("Password changed!")
+        return redirect(url_for("index"))
+    return render_template("reset_password.html", form=form, token=token)
 
 
 @app.route("/logout")

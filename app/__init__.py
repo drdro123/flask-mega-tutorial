@@ -3,6 +3,7 @@ from logging.handlers import RotatingFileHandler, SMTPHandler
 import os
 
 from flask import Flask
+from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
@@ -20,6 +21,8 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 mail = Mail(app)
+
+boostrap = Bootstrap(app)
 
 from app import errors, routes, models  # noqa: F402,F401
 

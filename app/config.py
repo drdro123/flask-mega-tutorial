@@ -7,6 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "test dev key")
     POSTS_PER_PAGE = 10
+    LANGUAGES = ["en", "it"]
 
     # Database
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or "sqlite:///" + os.path.join(

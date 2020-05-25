@@ -1,0 +1,151 @@
+# Italian translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-05-25 11:35+0100\n"
+"PO-Revision-Date: 2020-05-24 13:55+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: it\n"
+"Language-Team: it <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: app/__init__.py:21
+msgid "Please log in to access this page."
+msgstr "Loggarsi per acccedera a questa pagina."
+
+#: app/forms.py:11 app/forms.py:19
+msgid "Request Password Reset"
+msgstr "Reimposta la sua password"
+
+#: app/forms.py:17 app/forms.py:61
+msgid "Confirm Password"
+msgstr "Conferma Password"
+
+#: app/forms.py:23 app/forms.py:30 app/forms.py:57
+msgid "Username"
+msgstr "Utente"
+
+#: app/forms.py:25
+msgid "Remember me"
+msgstr "Ricordati di me"
+
+#: app/forms.py:26
+msgid "Sign In"
+msgstr "Loggarsi"
+
+#: app/forms.py:31
+msgid "About Me"
+msgstr "Informazione"
+
+#: app/forms.py:32 app/forms.py:49 app/forms.py:53
+msgid "Submit"
+msgstr "Invia"
+
+#: app/forms.py:42
+msgid "Username already exists."
+msgstr "Utente esiste giá."
+
+#: app/forms.py:47
+msgid "Say something"
+msgstr "Posta qualcosa"
+
+#: app/forms.py:63 app/templates/register.html:5
+msgid "Register"
+msgstr "Registrati"
+
+#: app/forms.py:68
+msgid "Please use a different username"
+msgstr "Si prega di scegliere un username diverso"
+
+#: app/forms.py:73
+msgid "Please use a different email address."
+msgstr "Si prega di scegliere un indirizzo email diverso"
+
+#: app/routes.py:41
+msgid "Post submitted!"
+msgstr "Inviato!"
+
+#: app/routes.py:123
+msgid "You cannot follow yourself!"
+msgstr "Non é possibile auto-seguirsi!"
+
+#: app/routes.py:127
+#, python-format
+msgid "You are now following %(username)s!"
+msgstr "Stai seguendo %(username)s!"
+
+#: app/routes.py:143
+msgid "You cannot unfollow yourself!"
+msgstr "Non é possibile auto-seguirsi!"
+
+#: app/routes.py:147
+#, python-format
+msgid "You are no longer following %(username)s!"
+msgstr "Non stai piú seguendo %(username)s!"
+
+#: app/routes.py:175
+msgid "Invalid username or password."
+msgstr "Username o pasword errato."
+
+#: app/routes.py:200
+msgid "Congratulations, you have registered successfully!"
+msgstr "Complimenti, si é registrata con successo!"
+
+#: app/routes.py:214
+msgid "Check your email for instructions on resetting your password."
+msgstr ""
+"Controlla la cartella email per istruzioni su il risettagio della "
+"password."
+
+#: app/routes.py:230
+msgid "Password changed!"
+msgstr "Password cambiata!"
+
+#: app/templates/404.html:4
+msgid "File Not Found"
+msgstr "File Non Trovato"
+
+#: app/templates/500.html:4
+msgid "An unexpected error has occurred."
+msgstr "Un errore non aspettato é accaduto."
+
+#: app/templates/500.html:5
+msgid "The administrator has been notified. Sorry for any inconvenience"
+msgstr ""
+"L'amministratore é stato notificato. Ci scusiamo per qualsiasi "
+"inconvenienza."
+
+#: app/templates/_post.html:12
+#, python-format
+msgid "%(username)s said %(when)s"
+msgstr "%(username)s ha detto %(when)s"
+
+#: app/templates/index.html:5
+#, python-format
+msgid "Hi %(username)s"
+msgstr "Ciao %(username)s"
+
+#: app/templates/reset_password.html:6
+msgid "Please choose a new password:"
+msgstr ""
+
+#~ msgid "Forgot Your Password?"
+#~ msgstr "Dimenticata la Password?"
+
+#~ msgid "Reset It!"
+#~ msgstr "Ripristinala!"
+
+#~ msgid "New User?"
+#~ msgstr "Nuovo utente?"
+
+#~ msgid "Click to Register!"
+#~ msgstr "Registrati!"

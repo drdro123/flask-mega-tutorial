@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, g, redirect, render_template, request, url_for
+from flask_babel import _, get_locale
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
 
@@ -23,6 +24,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+    g.locale = str(get_locale())
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -36,7 +38,7 @@ def index():
         )
         db.session.add(post)
         db.session.commit()
-        flash("Post submitted!")
+        flash(_("Post submitted!"))
         return redirect(
             url_for("index")
         )  # Better Refresh behaviour (POST/REDIRECT/GET). Also avoids duplicate posts
@@ -118,11 +120,11 @@ def follow(username):
             flash(f"User {username} not found!")
             return redirect(url_for("index"))
         if user == current_user:
-            flash("You cannot follow yourself!")
+            flash(_("You cannot follow yourself!"))
             return redirect(url_for("user"), username=username)
         current_user.follow(user)
         db.session.commit()
-        flash(f"You are now following {username}!")
+        flash(_("You are now following %(username)s!", username=username))
         return redirect(url_for("user", username=username))
     else:
         return redirect(url_for("index"))
@@ -138,11 +140,11 @@ def unfollow(username):
             flash(f"User {username} not found!")
             return redirect(url_for("index"))
         if user == current_user:
-            flash("You cannot unfollow yourself!")
+            flash(_("You cannot unfollow yourself!"))
             return redirect(url_for("user"), username=username)
         current_user.unfollow(user)
         db.session.commit()
-        flash(f"You are no longer following {username}!")
+        flash(_("You are no longer following %(username)s!", username=username))
         return redirect(url_for("user", username=username))
     else:
         return redirect(url_for("index"))
@@ -170,7 +172,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password.")
+            flash(_("Invalid username or password."))
             return redirect(url_for("login"))
         # Valid credentials
         login_user(user, remember=form.remember_me.data)
@@ -195,7 +197,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash("Congratulations, you have registered successfully!")
+        flash(_("Congratulations, you have registered successfully!"))
         return redirect(url_for("login"))
     return render_template("register.html", title="Register", form=form)
 
@@ -209,7 +211,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash("Check your email for instructions on resetting your password.")
+        flash(_("Check your email for instructions on resetting your password."))
         return redirect(url_for("index"))
     return render_template("reset_password_request.html", form=form)
 
@@ -225,7 +227,7 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash("Password changed!")
+        flash(_("Password changed!"))
         return redirect(url_for("index"))
     return render_template("reset_password.html", form=form, token=token)
 

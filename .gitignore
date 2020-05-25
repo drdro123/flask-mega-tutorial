@@ -114,3 +114,4 @@ env.sh
 .vscode/
 
 logs/
+messages.pot

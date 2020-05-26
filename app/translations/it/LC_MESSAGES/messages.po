@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-25 11:35+0100\n"
+"POT-Creation-Date: 2020-05-27 00:34+0100\n"
 "PO-Revision-Date: 2020-05-24 13:55+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -38,7 +38,7 @@ msgstr "Utente"
 msgid "Remember me"
 msgstr "Ricordati di me"
 
-#: app/forms.py:26
+#: app/forms.py:26 app/templates/login.html:5
 msgid "Sign In"
 msgstr "Loggarsi"
 
@@ -70,43 +70,43 @@ msgstr "Si prega di scegliere un username diverso"
 msgid "Please use a different email address."
 msgstr "Si prega di scegliere un indirizzo email diverso"
 
-#: app/routes.py:41
+#: app/routes.py:49
 msgid "Post submitted!"
 msgstr "Inviato!"
 
-#: app/routes.py:123
+#: app/routes.py:136
 msgid "You cannot follow yourself!"
 msgstr "Non é possibile auto-seguirsi!"
 
-#: app/routes.py:127
+#: app/routes.py:140
 #, python-format
 msgid "You are now following %(username)s!"
 msgstr "Stai seguendo %(username)s!"
 
-#: app/routes.py:143
+#: app/routes.py:156
 msgid "You cannot unfollow yourself!"
 msgstr "Non é possibile auto-seguirsi!"
 
-#: app/routes.py:147
+#: app/routes.py:160
 #, python-format
 msgid "You are no longer following %(username)s!"
 msgstr "Non stai piú seguendo %(username)s!"
 
-#: app/routes.py:175
+#: app/routes.py:188
 msgid "Invalid username or password."
 msgstr "Username o pasword errato."
 
-#: app/routes.py:200
+#: app/routes.py:213
 msgid "Congratulations, you have registered successfully!"
 msgstr "Complimenti, si é registrata con successo!"
 
-#: app/routes.py:214
+#: app/routes.py:227
 msgid "Check your email for instructions on resetting your password."
 msgstr ""
 "Controlla la cartella email per istruzioni su il risettagio della "
 "password."
 
-#: app/routes.py:230
+#: app/routes.py:243
 msgid "Password changed!"
 msgstr "Password cambiata!"
 
@@ -129,14 +129,38 @@ msgstr ""
 msgid "%(username)s said %(when)s"
 msgstr "%(username)s ha detto %(when)s"
 
+#: app/templates/_post.html:19
+msgid "Translate"
+msgstr "Traduci"
+
+#: app/templates/base.html:68
+msgid "Error: Could not contact server."
+msgstr "Errore: Non é stato possibile collegarsi al server."
+
 #: app/templates/index.html:5
 #, python-format
 msgid "Hi %(username)s"
 msgstr "Ciao %(username)s"
 
+#: app/templates/login.html:11
+msgid "Forgot Your Password?"
+msgstr "Hai dimenticato la tua password?"
+
+#: app/templates/login.html:11
+msgid "Reset It!"
+msgstr "Risettala"
+
+#: app/templates/login.html:12
+msgid "New User?"
+msgstr "Nuovo utente?"
+
+#: app/templates/login.html:12
+msgid "Click to Register!"
+msgstr "Clicca per registrarti!"
+
 #: app/templates/reset_password.html:6
 msgid "Please choose a new password:"
-msgstr ""
+msgstr "Si prega di scegliere una password nuova"
 
 #~ msgid "Forgot Your Password?"
 #~ msgstr "Dimenticata la Password?"

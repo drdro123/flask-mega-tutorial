@@ -6,6 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "test dev key")
+    LANGUAGE_API_KEY = os.getenv("LANGUAGE_API_KEY")
     POSTS_PER_PAGE = 10
     LANGUAGES = ["en", "it"]
 

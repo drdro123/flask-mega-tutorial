@@ -5,12 +5,20 @@
         </td>
         <td>
             {% set userlink %}
-                <a href="{{ url_for('user', username=post.author.username) }}">
-                    {{ post.author.username }}
-                </a>
+            <a href="{{ url_for('user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>
             {% endset %}
             {{ _("%(username)s said %(when)s", username=userlink, when=moment(post.timestamp).fromNow()) }}<br>
-            <i>{{ post.body }}</i>
+            <span id="post{{ post.id }}"><i>{{ post.body }}</i></br></span>
+            {% if post.language and post.language != g.locale %}
+            <span id="translation{{ post.id }}">
+                <a href="javascript:translate(
+                            '#post{{ post.id }}',
+                            '#translation{{ post.id }}',
+                            '{{ g.locale }}');">{{ _('Translate') }}</a>
+            </span>
+            {% endif %}
         </td>
     </tr>
 </table>

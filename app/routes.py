@@ -1,11 +1,13 @@
 from datetime import datetime
 
-from flask import flash, g, redirect, render_template, request, url_for
+from flask import flash, g, jsonify, redirect, render_template, request, url_for
 from flask_babel import _, get_locale
 from flask_login import current_user, login_required, login_user, logout_user
+from guess_language import guess_language
 from werkzeug.urls import url_parse
 
 from app import app, db
+from app.email import send_password_reset_email
 from app.forms import (
     EditProfileForm,
     EmptyForm,
@@ -16,7 +18,7 @@ from app.forms import (
     ResetPasswordForm,
 )
 from app.models import Post, User
-from app.email import send_password_reset_email
+from app.translate import translate
 
 
 @app.before_request
@@ -33,8 +35,14 @@ def before_request():
 def index():
     form = PostForm()
     if form.validate_on_submit():
+        language = guess_language(form.post.data)
+        if language == "UNKNOWN" or len(language) > 5:
+            language = ""
         post = Post(
-            body=form.post.data, timestamp=datetime.utcnow(), user_id=current_user.id
+            body=form.post.data,
+            timestamp=datetime.utcnow(),
+            user_id=current_user.id,
+            language=language,
         )
         db.session.add(post)
         db.session.commit()
@@ -76,6 +84,13 @@ def explore():
         posts=posts.items,
         next_url=next_url,
         prev_url=prev_url,
+    )
+
+
+@app.route("/translate", methods=["POST"])
+def translate_text():
+    return jsonify(
+        {"text": translate(request.form["text"], request.form["target_language"])}
     )
 
 

@@ -1,18 +1,18 @@
 import json
 
+from flask import current_app
 import requests
-
-from app import app
+from flask_babel import _
 
 
 def translate(text, target_language):
-    if not app.config.get("LANGUAGE_API_KEY"):
+    if not current_app.config.get("LANGUAGE_API_KEY"):
         return "Configuration error"
 
     url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 
     body = {
-        "key": app.config["LANGUAGE_API_KEY"],
+        "key": current_app.config["LANGUAGE_API_KEY"],
         "text": text,
         "lang": target_language,
     }

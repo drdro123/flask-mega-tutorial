@@ -108,6 +108,7 @@ venv.bak/
 
 # Secrets
 env.sh
+.envrc
 .flaskenv
 
 # VS Code

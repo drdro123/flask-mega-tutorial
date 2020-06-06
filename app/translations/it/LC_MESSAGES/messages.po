@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-27 00:34+0100\n"
+"POT-Creation-Date: 2020-06-06 19:29+0100\n"
 "PO-Revision-Date: 2020-05-24 13:55+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -18,111 +18,101 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: app/__init__.py:21
+#: app/__init__.py:19
 msgid "Please log in to access this page."
 msgstr "Loggarsi per acccedera a questa pagina."
 
-#: app/forms.py:11 app/forms.py:19
+#: app/auth/forms.py:11 app/auth/forms.py:19
 msgid "Request Password Reset"
 msgstr "Reimposta la sua password"
 
-#: app/forms.py:17 app/forms.py:61
+#: app/auth/forms.py:17 app/auth/forms.py:34
 msgid "Confirm Password"
 msgstr "Conferma Password"
 
-#: app/forms.py:23 app/forms.py:30 app/forms.py:57
+#: app/auth/forms.py:23 app/auth/forms.py:30 app/main/forms.py:23
 msgid "Username"
 msgstr "Utente"
 
-#: app/forms.py:25
+#: app/auth/forms.py:25
 msgid "Remember me"
 msgstr "Ricordati di me"
 
-#: app/forms.py:26 app/templates/login.html:5
+#: app/auth/forms.py:26 app/templates/auth/login.html:5
 msgid "Sign In"
 msgstr "Loggarsi"
 
-#: app/forms.py:31
-msgid "About Me"
-msgstr "Informazione"
-
-#: app/forms.py:32 app/forms.py:49 app/forms.py:53
-msgid "Submit"
-msgstr "Invia"
-
-#: app/forms.py:42
-msgid "Username already exists."
-msgstr "Utente esiste giá."
-
-#: app/forms.py:47
-msgid "Say something"
-msgstr "Posta qualcosa"
-
-#: app/forms.py:63 app/templates/register.html:5
+#: app/auth/forms.py:36 app/templates/auth/register.html:5
 msgid "Register"
 msgstr "Registrati"
 
-#: app/forms.py:68
+#: app/auth/forms.py:41
 msgid "Please use a different username"
 msgstr "Si prega di scegliere un username diverso"
 
-#: app/forms.py:73
+#: app/auth/forms.py:46
 msgid "Please use a different email address."
 msgstr "Si prega di scegliere un indirizzo email diverso"
 
-#: app/routes.py:49
-msgid "Post submitted!"
-msgstr "Inviato!"
-
-#: app/routes.py:136
-msgid "You cannot follow yourself!"
-msgstr "Non é possibile auto-seguirsi!"
-
-#: app/routes.py:140
-#, python-format
-msgid "You are now following %(username)s!"
-msgstr "Stai seguendo %(username)s!"
-
-#: app/routes.py:156
-msgid "You cannot unfollow yourself!"
-msgstr "Non é possibile auto-seguirsi!"
-
-#: app/routes.py:160
-#, python-format
-msgid "You are no longer following %(username)s!"
-msgstr "Non stai piú seguendo %(username)s!"
-
-#: app/routes.py:188
+#: app/auth/routes.py:27
 msgid "Invalid username or password."
 msgstr "Username o pasword errato."
 
-#: app/routes.py:213
+#: app/auth/routes.py:52
 msgid "Congratulations, you have registered successfully!"
 msgstr "Complimenti, si é registrata con successo!"
 
-#: app/routes.py:227
+#: app/auth/routes.py:66
 msgid "Check your email for instructions on resetting your password."
 msgstr ""
 "Controlla la cartella email per istruzioni su il risettagio della "
 "password."
 
-#: app/routes.py:243
+#: app/auth/routes.py:82
 msgid "Password changed!"
 msgstr "Password cambiata!"
 
-#: app/templates/404.html:4
-msgid "File Not Found"
-msgstr "File Non Trovato"
+#: app/main/forms.py:11 app/main/routes.py:118
+msgid "Search"
+msgstr "Cerca"
 
-#: app/templates/500.html:4
-msgid "An unexpected error has occurred."
-msgstr "Un errore non aspettato é accaduto."
+#: app/main/forms.py:24
+msgid "About Me"
+msgstr "Informazione"
 
-#: app/templates/500.html:5
-msgid "The administrator has been notified. Sorry for any inconvenience"
-msgstr ""
-"L'amministratore é stato notificato. Ci scusiamo per qualsiasi "
-"inconvenienza."
+#: app/main/forms.py:25 app/main/forms.py:42 app/main/forms.py:46
+msgid "Submit"
+msgstr "Invia"
+
+#: app/main/forms.py:35
+msgid "Username already exists."
+msgstr "Utente esiste giá."
+
+#: app/main/forms.py:40
+msgid "Say something"
+msgstr "Posta qualcosa"
+
+#: app/main/routes.py:55
+msgid "Post submitted!"
+msgstr "Inviato!"
+
+#: app/main/routes.py:173
+msgid "You cannot follow yourself!"
+msgstr "Non é possibile auto-seguirsi!"
+
+#: app/main/routes.py:177
+#, python-format
+msgid "You are now following %(username)s!"
+msgstr "Stai seguendo %(username)s!"
+
+#: app/main/routes.py:193
+msgid "You cannot unfollow yourself!"
+msgstr "Non é possibile auto-seguirsi!"
+
+#: app/main/routes.py:197
+#, python-format
+msgid "You are no longer following %(username)s!"
+msgstr "Non stai piú seguendo %(username)s!"
 
 #: app/templates/_post.html:12
 #, python-format
@@ -133,7 +123,7 @@ msgstr "%(username)s ha detto %(when)s"
 msgid "Translate"
 msgstr "Traduci"
 
-#: app/templates/base.html:68
+#: app/templates/base.html:76
 msgid "Error: Could not contact server."
 msgstr "Errore: Non é stato possibile collegarsi al server."
 
@@ -142,25 +132,43 @@ msgstr "Errore: Non é stato possibile collegarsi al server."
 msgid "Hi %(username)s"
 msgstr "Ciao %(username)s"
 
-#: app/templates/login.html:11
+#: app/templates/search.html:5
+msgid "Search Results"
+msgstr "Risultati"
+
+#: app/templates/auth/login.html:11
 msgid "Forgot Your Password?"
 msgstr "Hai dimenticato la tua password?"
 
-#: app/templates/login.html:11
+#: app/templates/auth/login.html:11
 msgid "Reset It!"
 msgstr "Risettala"
 
-#: app/templates/login.html:12
+#: app/templates/auth/login.html:12
 msgid "New User?"
 msgstr "Nuovo utente?"
 
-#: app/templates/login.html:12
+#: app/templates/auth/login.html:12
 msgid "Click to Register!"
 msgstr "Clicca per registrarti!"
 
-#: app/templates/reset_password.html:6
+#: app/templates/auth/reset_password.html:6
 msgid "Please choose a new password:"
 msgstr "Si prega di scegliere una password nuova"
+
+#: app/templates/errors/404.html:4
+msgid "File Not Found"
+msgstr "File Non Trovato"
+
+#: app/templates/errors/500.html:4
+msgid "An unexpected error has occurred."
+msgstr "Un errore non aspettato é accaduto."
+
+#: app/templates/errors/500.html:5
+msgid "The administrator has been notified. Sorry for any inconvenience"
+msgstr ""
+"L'amministratore é stato notificato. Ci scusiamo per qualsiasi "
+"inconvenienza."
 
 #~ msgid "Forgot Your Password?"
 #~ msgstr "Dimenticata la Password?"

@@ -15,6 +15,7 @@ class Config:
         basedir, "app.db"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    ELASTICSEARCH_URL = os.getenv("ELASTICSEARCH_URL")
 
     # Email Notifications
     MAIL_SERVER = os.getenv("MAIL_SERVER")

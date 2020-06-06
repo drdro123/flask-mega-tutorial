@@ -2,6 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler, SMTPHandler
 import os
 
+from elasticsearch import Elasticsearch
 from flask import current_app, Flask, request
 from flask_babel import Babel, lazy_gettext as _l
 from flask_bootstrap import Bootstrap
@@ -32,6 +33,13 @@ def get_locale():
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Elastic Search
+    app.elasticsearch = (
+        Elasticsearch(hosts=[app.config["ELASTICSEARCH_URL"]])
+        if app.config["ELASTICSEARCH_URL"]
+        else None
+    )
 
     # Plugins
     login.init_app(app)

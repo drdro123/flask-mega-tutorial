@@ -116,5 +116,4 @@ env.sh
 
 logs/
 messages.pot
-auth/
 .DS_Store

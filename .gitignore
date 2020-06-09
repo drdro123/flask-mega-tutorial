@@ -117,3 +117,4 @@ env.sh
 logs/
 messages.pot
 .DS_Store
+app.yaml

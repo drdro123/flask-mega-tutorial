@@ -12,7 +12,7 @@ from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from app.config import Config
+from config import Config
 
 login = LoginManager()
 login.login_view = "auth.login"

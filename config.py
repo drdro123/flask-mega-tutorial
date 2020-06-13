@@ -7,6 +7,8 @@ load_dotenv(os.path.join(basedir, ".env"))
 
 
 class Config:
+    """Application configuration variables."""
+    LOG_TO_STDOUT = os.getenv("LOG_TO_STDOUT")
     SECRET_KEY = os.getenv("SECRET_KEY", "test dev key")
     LANGUAGE_API_KEY = os.getenv("LANGUAGE_API_KEY")
     POSTS_PER_PAGE = 10

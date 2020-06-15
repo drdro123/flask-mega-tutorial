@@ -66,7 +66,8 @@ Welcome to Microblog!
     {{ moment.lang(g.locale) }}
     <script>
         function translate(sourceElem, destElem, destLang) {
-            $(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
+            let url = "{{ url_for('static', filename='loading.gif') }}";  // Please the linter
+            $(destElem).html('<img src=>"' + url + '"');
             $.post('/translate', {
                 text: $(sourceElem).text(),
                 target_language: destLang
@@ -76,6 +77,62 @@ Welcome to Microblog!
                 $(destElem).text("{{ _('Error: Could not contact server.') }}");
             });
         }
+
+        // Start-up functions
+        $(function() {
+            var timer = null;
+            var xhr = null;
+            $('.user_popup').hover(
+                function(event) {
+                    // Function which runs when mouse on
+                    var elem = $(event.currentTarget);
+                    timer = setTimeout(
+                        function() {
+                            timer = null;
+                            var user = elem.first().text().trim();
+                            // Pop-up logic here
+                            $.ajax(
+                                '/users/' + user + '/popup'
+                            ).done(
+                                function(data) {
+                                    xhr = null;
+                                    // Create and display pop-up here
+                                    elem.popover(
+                                        {
+                                            trigger: 'manual',
+                                            html: true,
+                                            animation: false,
+                                            container: elem,
+                                            content: data,
+                                        }
+                                    ).popover('show');
+                                    flask_moment_render_all();
+                                }
+                            )
+                        },
+                        1000
+                    )
+                },
+                function(event) {
+                    // Function which runs when mouse off
+                    var elem = $(event.currentTarget);
+                    if (timer) {
+                        clearTimeout(timer);
+                        timer = null;
+                    }
+                    else if(xhr) {
+                        // Interrupt AJAX request
+                        xhr.abort();
+                        xhr = null;
+                    }
+                    else {
+                        // Destroy popup here
+                        elem.popover('destroy')
+                    }
+                }
+            )
+        });
+
     </script>
 {% endblock %}
 

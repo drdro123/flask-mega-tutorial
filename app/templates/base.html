@@ -20,16 +20,16 @@ Welcome to Microblog!
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Microblog</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">No Alessandros Club</a>
         </div>
         <div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{{ url_for('main.index') }}">Home</a>
+                    <a href="{{ url_for('main.index') }}">{{ _("Home") }}</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('main.explore') }}">Explore</a>
+                    <a href="{{ url_for('main.explore') }}">{{ _("Explore") }}</a>
                 </li>
             </ul>
             <!-- Search Bar -->
@@ -44,14 +44,26 @@ Welcome to Microblog!
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                 <li>
-                    <a href="{{ url_for('auth.logout') }}">Log Out</a>
+                    <a href="{{ url_for('main.messages') }}">
+                        {{ _("Messages") }}
+                        {% set new_messages = current_user.new_messages() %}
+                            <span id="message_count"
+                                  class="badge"
+                                  style="visibility: {% if new_messages %}visible
+                                                     {% else %}hidden{% endif %};">
+                                {{ new_messages }}
+                            </span>
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
+                    <a href="{{ url_for('main.user', username=current_user.username) }}">{{ _("Profile") }}</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout') }}">{{ _("Log Out") }}</a>
                 </li>
                 {% else %}
                     <li>
-                        <a href="{{ url_for('auth.login') }}">Log In</a>
+                        <a href="{{ url_for('auth.login') }}">{{ _("Log In") }}</a>
                     </li>
                 {% endif %}
             </ul>
@@ -78,7 +90,32 @@ Welcome to Microblog!
             });
         }
 
-        // Start-up functions
+        function set_message_count(n) {
+            $('#message_count').text(n);
+            $('#message_count').css('visibility', n ? 'visible': 'hidden');
+        }
+
+        // Start-up function which periodically polls server for notifications
+        $(function() {
+            var since = 0.0;
+            setInterval(
+                function() {
+                    $.ajax('{{ url_for("main.notifications") }}?since={{ since }}').done(
+                        function(notifications) {
+                            for (var i = 0; i < notifications.length; i++) {
+                                if (notifications[i].name == "unread_message_count") {
+                                    set_message_count(notifications[i].data);
+                                    since = notifications[i].timestamp;
+                                }
+                            }
+                        }
+                    )
+                },
+                10000  // Poll frequency in ms
+            );
+        });
+
+        // Start-up function which contains user hover logic
         $(function() {
             var timer = null;
             var xhr = null;

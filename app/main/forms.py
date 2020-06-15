@@ -42,5 +42,12 @@ class PostForm(FlaskForm):
     submit = SubmitField(_l("Submit"))
 
 
+class MessageForm(FlaskForm):
+    message = TextAreaField(
+        _l("Message"), validators=[DataRequired(), Length(min=1, max=140)]
+    )
+    submit = SubmitField(_l("Submit"))
+
+
 class EmptyForm(FlaskForm):
     submit = SubmitField(_l("Submit"))

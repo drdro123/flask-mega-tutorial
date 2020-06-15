@@ -1,8 +1,8 @@
 """private messages
 
-Revision ID: d049de007ccf
-Revises: 834b1a697901
-Create Date: 2017-11-12 23:30:28.571784
+Revision ID: 4734139b56a2
+Revises: 2b017edaa91f
+Create Date: 2020-06-15 12:13:06.403303
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd049de007ccf'
+revision = '4734139b56a2'
 down_revision = '2b017edaa91f'
 branch_labels = None
 depends_on = None

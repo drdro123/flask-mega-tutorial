@@ -1,8 +1,8 @@
 """notifications
 
-Revision ID: f7ac3d27bb1d
-Revises: d049de007ccf
-Create Date: 2017-11-22 19:48:39.945858
+Revision ID: 8fbdf6fc136f
+Revises: 4734139b56a2
+Create Date: 2020-06-20 10:28:47.218904
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f7ac3d27bb1d'
-down_revision = 'd049de007ccf'
+revision = '8fbdf6fc136f'
+down_revision = '4734139b56a2'
 branch_labels = None
 depends_on = None
 

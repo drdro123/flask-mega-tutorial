@@ -18,7 +18,7 @@
                     Followers: {{ user.followers.count() }} Following: {{ user.followed.count() }}
                 </p>
                 {% if user == current_user %}
-                    <p><a href={{ url_for('main.edit_profile') }}>Edit Profile</a></p>
+                    <p><a href="{{ url_for('main.edit_profile') }}">Edit Profile</a></p>
                 {% elif not current_user.is_following(user) %}
                     <p>
                         <form action="{{ url_for('main.follow', username=user.username) }}" method="post">
@@ -32,6 +32,13 @@
                             {{ form.hidden_tag() }}
                             {{ form.submit(value="Unfollow", class_='btn btn-default') }}
                         </form>
+                    </p>
+                {% endif %}
+                {% if user != current_user %}
+                    <p>
+                        <a href="{{ url_for('main.send_message', recipient=user.username) }}">
+                            {{ _("Send private message") }}
+                        </a>
                     </p>
                 {% endif %}
             </td>

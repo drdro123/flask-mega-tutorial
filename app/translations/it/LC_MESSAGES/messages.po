@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-06 19:29+0100\n"
+"POT-Creation-Date: 2020-06-15 15:23+0100\n"
 "PO-Revision-Date: 2020-05-24 13:55+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Password changed!"
 msgstr "Password cambiata!"
 
-#: app/main/forms.py:11 app/main/routes.py:118
+#: app/main/forms.py:11 app/main/routes.py:119
 msgid "Search"
 msgstr "Cerca"
 
@@ -80,7 +80,8 @@ msgstr "Cerca"
 msgid "About Me"
 msgstr "Informazione"
 
-#: app/main/forms.py:25 app/main/forms.py:42 app/main/forms.py:46
+#: app/main/forms.py:25 app/main/forms.py:42 app/main/forms.py:49
+#: app/main/forms.py:53
 msgid "Submit"
 msgstr "Invia"
 
@@ -92,38 +93,74 @@ msgstr "Utente esiste giá."
 msgid "Say something"
 msgstr "Posta qualcosa"
 
-#: app/main/routes.py:55
+#: app/main/forms.py:47
+msgid "Message"
+msgstr "Invia Messaggio"
+
+#: app/main/routes.py:56
 msgid "Post submitted!"
 msgstr "Inviato!"
 
-#: app/main/routes.py:173
-msgid "You cannot follow yourself!"
-msgstr "Non é possibile auto-seguirsi!"
+#: app/main/routes.py:159
+msgid "Your message has been sent"
+msgstr "Il tuo messaggio è stato inviato"
 
-#: app/main/routes.py:177
+#: app/main/routes.py:162
+msgid "Send Message"
+msgstr "Invia messaggio"
+
+#: app/main/routes.py:221
+msgid "You cannot follow yourself!"
+msgstr "Non è possibile auto-seguirsi!"
+
+#: app/main/routes.py:225
 #, python-format
 msgid "You are now following %(username)s!"
 msgstr "Stai seguendo %(username)s!"
 
-#: app/main/routes.py:193
+#: app/main/routes.py:241
 msgid "You cannot unfollow yourself!"
-msgstr "Non é possibile auto-seguirsi!"
+msgstr "Non è possibile auto-seguirsi!"
 
-#: app/main/routes.py:197
+#: app/main/routes.py:245
 #, python-format
 msgid "You are no longer following %(username)s!"
-msgstr "Non stai piú seguendo %(username)s!"
+msgstr "Non stai più seguendo %(username)s!"
 
-#: app/templates/_post.html:12
+#: app/templates/_post.html:14
 #, python-format
 msgid "%(username)s said %(when)s"
 msgstr "%(username)s ha detto %(when)s"
 
-#: app/templates/_post.html:19
+#: app/templates/_post.html:21
 msgid "Translate"
 msgstr "Traduci"
 
-#: app/templates/base.html:76
+#: app/templates/base.html:29
+msgid "Home"
+msgstr "Casa"
+
+#: app/templates/base.html:32
+msgid "Explore"
+msgstr "Esplora"
+
+#: app/templates/base.html:47 app/templates/messages.html:4
+msgid "Messages"
+msgstr "Messaggi"
+
+#: app/templates/base.html:50
+msgid "Profile"
+msgstr "Profilo"
+
+#: app/templates/base.html:53
+msgid "Log Out"
+msgstr "Log Off"
+
+#: app/templates/base.html:57
+msgid "Log In"
+msgstr "Log In"
+
+#: app/templates/base.html:80
 msgid "Error: Could not contact server."
 msgstr "Errore: Non é stato possibile collegarsi al server."
 
@@ -135,6 +172,15 @@ msgstr "Ciao %(username)s"
 #: app/templates/search.html:5
 msgid "Search Results"
 msgstr "Risultati"
+
+#: app/templates/send_message.html:5
+#, python-format
+msgid "Send Message to %(recipient)s"
+msgstr "Invia Messaggio a %(recipient)s"
+
+#: app/templates/user.html:40
+msgid "Send private message"
+msgstr "Invia messaggio privato"
 
 #: app/templates/auth/login.html:11
 msgid "Forgot Your Password?"

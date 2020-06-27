@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-15 15:23+0100\n"
+"POT-Creation-Date: 2020-06-27 14:07+0100\n"
 "PO-Revision-Date: 2020-05-24 13:55+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: app/__init__.py:19
+#: app/__init__.py:21
 msgid "Please log in to access this page."
 msgstr "Loggarsi per acccedera a questa pagina."
 
@@ -101,31 +101,39 @@ msgstr "Invia Messaggio"
 msgid "Post submitted!"
 msgstr "Inviato!"
 
-#: app/main/routes.py:159
+#: app/main/routes.py:176
 msgid "Your message has been sent"
 msgstr "Il tuo messaggio è stato inviato"
 
-#: app/main/routes.py:162
+#: app/main/routes.py:179
 msgid "Send Message"
 msgstr "Invia messaggio"
 
-#: app/main/routes.py:221
+#: app/main/routes.py:238
 msgid "You cannot follow yourself!"
 msgstr "Non è possibile auto-seguirsi!"
 
-#: app/main/routes.py:225
+#: app/main/routes.py:242
 #, python-format
 msgid "You are now following %(username)s!"
 msgstr "Stai seguendo %(username)s!"
 
-#: app/main/routes.py:241
+#: app/main/routes.py:258
 msgid "You cannot unfollow yourself!"
 msgstr "Non è possibile auto-seguirsi!"
 
-#: app/main/routes.py:245
+#: app/main/routes.py:262
 #, python-format
 msgid "You are no longer following %(username)s!"
 msgstr "Non stai più seguendo %(username)s!"
+
+#: app/main/routes.py:285
+msgid "An export task is already in progress."
+msgstr "L'esportazione dei tuoi dati è già in corso."
+
+#: app/main/routes.py:287
+msgid "Exporting posts"
+msgstr "Esportazione in corso"
 
 #: app/templates/_post.html:14
 #, python-format
@@ -144,23 +152,23 @@ msgstr "Casa"
 msgid "Explore"
 msgstr "Esplora"
 
-#: app/templates/base.html:47 app/templates/messages.html:4
+#: app/templates/base.html:48 app/templates/messages.html:4
 msgid "Messages"
 msgstr "Messaggi"
 
-#: app/templates/base.html:50
+#: app/templates/base.html:59
 msgid "Profile"
 msgstr "Profilo"
 
-#: app/templates/base.html:53
+#: app/templates/base.html:62
 msgid "Log Out"
 msgstr "Log Off"
 
-#: app/templates/base.html:57
+#: app/templates/base.html:66
 msgid "Log In"
 msgstr "Log In"
 
-#: app/templates/base.html:80
+#: app/templates/base.html:89
 msgid "Error: Could not contact server."
 msgstr "Errore: Non é stato possibile collegarsi al server."
 
@@ -178,7 +186,7 @@ msgstr "Risultati"
 msgid "Send Message to %(recipient)s"
 msgstr "Invia Messaggio a %(recipient)s"
 
-#: app/templates/user.html:40
+#: app/templates/user.html:43
 msgid "Send private message"
 msgstr "Invia messaggio privato"
 
@@ -215,15 +223,3 @@ msgid "The administrator has been notified. Sorry for any inconvenience"
 msgstr ""
 "L'amministratore é stato notificato. Ci scusiamo per qualsiasi "
 "inconvenienza."
-
-#~ msgid "Forgot Your Password?"
-#~ msgstr "Dimenticata la Password?"
-
-#~ msgid "Reset It!"
-#~ msgstr "Ripristinala!"
-
-#~ msgid "New User?"
-#~ msgstr "Nuovo utente?"
-
-#~ msgid "Click to Register!"
-#~ msgstr "Registrati!"

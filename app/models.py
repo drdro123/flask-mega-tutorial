@@ -6,6 +6,8 @@ import jwt
 
 from flask import current_app
 from flask_login import UserMixin
+import redis
+import rq
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db, login, search
@@ -78,6 +80,7 @@ class User(UserMixin, db.Model):
 
     # Relationships (i.e. data pulled from other tables)
     posts = db.relationship("Post", backref="author", lazy="dynamic")
+    tasks = db.relationship("Task", backref="user", lazy="dynamic")
     followed = db.relationship(
         "User",
         secondary=followers,
@@ -111,6 +114,22 @@ class User(UserMixin, db.Model):
             .filter(Message.timestamp > last_read_time)
             .count()
         )
+
+    def launch_task(self, name, description, *args, **kwargs):
+        rq_job = current_app.task_queue.enqueue(
+            f"app.tasks.{name}", self.id, *args, **kwargs
+        )
+
+        task = Task(id=rq_job.get_id(), name=name, description=description, user=self)
+        db.session.add(task)
+
+        return task
+
+    def get_tasks_in_progress(self):
+        return Task.query.filter_by(user=self, complete=False).all()
+
+    def get_task_in_progress(self, name):
+        return Task.query.filter_by(user=self, name=name, complete=False).first()
 
     def follow(self, user):
         if not self.is_following(user):
@@ -161,9 +180,6 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode("utf-8")).hexdigest()
         return f"https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}"
 
-    def __repr__(self):
-        return f"<User {self.username}>"
-
 
 class Post(SearchableMixin, db.Model):
 
@@ -198,6 +214,25 @@ class Notification(db.Model):
 
     def get_payload(self):
         return json.loads(str(self.payload_json))
+
+
+class Task(db.Model):
+
+    id = db.Column(db.String(36), primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    description = db.Column(db.String(128))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    complete = db.Column(db.Boolean, default=False)
+
+    def get_rq_job(self):
+        try:
+            return rq.job.Job.fetch(id=self.id, connection=current_app.redis)
+        except (rq.exceptions.NoSuchJobError, redis.exceptions.RedisError):
+            return None
+
+    def get_progress(self):
+        job = self.get_rq_job()
+        return job.meta.get("progress", 0) if job is not None else 100
 
 
 db.event.listen(db.session, "before_commit", SearchableMixin.before_commit)

@@ -34,11 +34,11 @@ Welcome to Microblog!
             </ul>
             <!-- Search Bar -->
             {% if g.search_form %}
-                <form class="navbar-form navbar-left" method="get" action="{{ url_for('main.search') }}">
-                    <div class="form-group">
-                        {{ g.search_form.q(size=20, class='form-control', placeholder=g.search_form.q.label.text) }}
-                    </div>
-                </form>
+            <form class="navbar-form navbar-left" method="get" action="{{ url_for('main.search') }}">
+                <div class="form-group">
+                    {{ g.search_form.q(size=20, class='form-control', placeholder=g.search_form.q.label.text) }}
+                </div>
+            </form>
             {% endif %}
             <!-- Display user-related options on right hand side -->
             <ul class="nav navbar-nav navbar-right">
@@ -47,12 +47,10 @@ Welcome to Microblog!
                     <a href="{{ url_for('main.messages') }}">
                         {{ _("Messages") }}
                         {% set new_messages = current_user.new_messages() %}
-                            <span id="message_count"
-                                  class="badge"
-                                  style="visibility: {% if new_messages %}visible
+                        <span id="message_count" class="badge" style="visibility: {% if new_messages %}visible
                                                      {% else %}hidden{% endif %};">
-                                {{ new_messages }}
-                            </span>
+                            {{ new_messages }}
+                        </span>
                     </a>
                 </li>
                 <li>
@@ -62,9 +60,9 @@ Welcome to Microblog!
                     <a href="{{ url_for('auth.logout') }}">{{ _("Log Out") }}</a>
                 </li>
                 {% else %}
-                    <li>
-                        <a href="{{ url_for('auth.login') }}">{{ _("Log In") }}</a>
-                    </li>
+                <li>
+                    <a href="{{ url_for('auth.login') }}">{{ _("Log In") }}</a>
+                </li>
                 {% endif %}
             </ul>
         </div>
@@ -73,117 +71,141 @@ Welcome to Microblog!
 {% endblock %}
 
 {% block scripts %}
-    {{ super() }}
-    {{ moment.include_moment() }}
-    {{ moment.lang(g.locale) }}
-    <script>
-        function translate(sourceElem, destElem, destLang) {
-            let url = "{{ url_for('static', filename='loading.gif') }}";  // Please the linter
-            $(destElem).html('<img src=>"' + url + '"');
-            $.post('/translate', {
-                text: $(sourceElem).text(),
-                target_language: destLang
-            }).done(function(response) {
-                $(destElem).text(response["text"]["text"][0])
-            }).fail(function() {
-                $(destElem).text("{{ _('Error: Could not contact server.') }}");
-            });
-        }
+{{ super() }}
+{{ moment.include_moment() }}
+{{ moment.lang(g.locale) }}
+<script>
+    function translate(sourceElem, destElem, destLang) {
+        let url = "{{ url_for('static', filename='loading.gif') }}";  // Please the linter
+        $(destElem).html('<img src=>"' + url + '"');
+        $.post('/translate', {
+            text: $(sourceElem).text(),
+            target_language: destLang
+        }).done(function (response) {
+            $(destElem).text(response["text"]["text"][0])
+        }).fail(function () {
+            $(destElem).text("{{ _('Error: Could not contact server.') }}");
+        });
+    }
 
-        function set_message_count(n) {
-            $('#message_count').text(n);
-            $('#message_count').css('visibility', n ? 'visible': 'hidden');
-        }
+    function set_message_count(n) {
+        $('#message_count').text(n);
+        $('#message_count').css('visibility', n ? 'visible' : 'hidden');
+    }
 
-        // Start-up function which periodically polls server for notifications
-        $(function() {
-            var since = 0.0;
-            setInterval(
-                function() {
-                    $.ajax('{{ url_for("main.notifications") }}?since={{ since }}').done(
-                        function(notifications) {
-                            for (var i = 0; i < notifications.length; i++) {
-                                if (notifications[i].name == "unread_message_count") {
+    function set_progress(task_id, progress) {
+        $("#" + task_id + "-progress").text(progress);
+    }
+
+    // Start-up function which periodically polls server for notifications
+    $(function () {
+        var since = 0.0;
+        setInterval(
+            function () {
+                $.ajax('{{ url_for("main.notifications") }}?since={{ since }}').done(
+                    function (notifications) {
+                        for (var i = 0; i < notifications.length; i++) {
+                            switch (notifications[i].name) {
+                                case "unread_message_count":
                                     set_message_count(notifications[i].data);
-                                    since = notifications[i].timestamp;
-                                }
+                                    break;
+                                case "task_progress":
+                                    set_progress(
+                                        notifications[i].data.task_id,
+                                        notifications[i].data.progress
+                                    )
                             }
+                            since = notifications[i].timestamp;
                         }
-                    )
-                },
-                10000  // Poll frequency in ms
-            );
-        });
+                    }
+                )
+            },
+            10000  // Poll frequency in ms
+        );
+    });
 
-        // Start-up function which contains user hover logic
-        $(function() {
-            var timer = null;
-            var xhr = null;
-            $('.user_popup').hover(
-                function(event) {
-                    // Function which runs when mouse on
-                    var elem = $(event.currentTarget);
-                    timer = setTimeout(
-                        function() {
-                            timer = null;
-                            var user = elem.first().text().trim();
-                            // Pop-up logic here
-                            $.ajax(
-                                '/users/' + user + '/popup'
-                            ).done(
-                                function(data) {
-                                    xhr = null;
-                                    // Create and display pop-up here
-                                    elem.popover(
-                                        {
-                                            trigger: 'manual',
-                                            html: true,
-                                            animation: false,
-                                            container: elem,
-                                            content: data,
-                                        }
-                                    ).popover('show');
-                                    flask_moment_render_all();
-                                }
-                            )
-                        },
-                        1000
-                    )
-                },
-                function(event) {
-                    // Function which runs when mouse off
-                    var elem = $(event.currentTarget);
-                    if (timer) {
-                        clearTimeout(timer);
+    // Start-up function which contains user hover logic
+    $(function () {
+        var timer = null;
+        var xhr = null;
+        $('.user_popup').hover(
+            function (event) {
+                // Function which runs when mouse on
+                var elem = $(event.currentTarget);
+                timer = setTimeout(
+                    function () {
                         timer = null;
-                    }
-                    else if(xhr) {
-                        // Interrupt AJAX request
-                        xhr.abort();
-                        xhr = null;
-                    }
-                    else {
-                        // Destroy popup here
-                        elem.popover('destroy')
-                    }
+                        var user = elem.first().text().trim();
+                        // Pop-up logic here
+                        $.ajax(
+                            '/users/' + user + '/popup'
+                        ).done(
+                            function (data) {
+                                xhr = null;
+                                // Create and display pop-up here
+                                elem.popover(
+                                    {
+                                        trigger: 'manual',
+                                        html: true,
+                                        animation: false,
+                                        container: elem,
+                                        content: data,
+                                    }
+                                ).popover('show');
+                                flask_moment_render_all();
+                            }
+                        )
+                    },
+                    1000
+                )
+            },
+            function (event) {
+                // Function which runs when mouse off
+                var elem = $(event.currentTarget);
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
                 }
-            )
-        });
+                else if (xhr) {
+                    // Interrupt AJAX request
+                    xhr.abort();
+                    xhr = null;
+                }
+                else {
+                    // Destroy popup here
+                    elem.popover('destroy')
+                }
+            }
+        )
+    });
 
-    </script>
+</script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
+    <!--Display ongoing task progress-->
+    {% if current_user.is_authenticated %}
+    {% with tasks = current_user.get_tasks_in_progress() %}
+    {% if tasks %}
+    {% for task in tasks %}
+    <div class="alert alert-success" role="alert">
+        <!--The 'span' tag allows us to attach an id specifically to the progress percentage-->
+        {{ task.description }} <span id="{{ task.id }}-progress">{{ task.get_progress() }}</span>%
+    </div>
+    {% endfor %}
     {% endif %}
     {% endwith %}
+    {% endif %}
+    <!--Flash messages on screen-->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <!--Content gets injected here-->
     {% block app_content %}{% endblock %}
 </div>
 {% endblock %}

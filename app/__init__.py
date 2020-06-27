@@ -11,6 +11,8 @@ from flask_mail import Mail
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from redis import Redis
+import rq
 
 from config import Config
 
@@ -40,6 +42,10 @@ def create_app(config_class=Config):
         if app.config["ELASTICSEARCH_URL"]
         else None
     )
+
+    # Redis
+    app.redis = Redis.from_url(app.config["REDIS_URL"])
+    app.task_queue = rq.Queue("microblog-tasks", connection=app.redis)
 
     # Plugins
     login.init_app(app)

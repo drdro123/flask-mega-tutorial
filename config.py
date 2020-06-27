@@ -13,6 +13,7 @@ class Config:
     LANGUAGE_API_KEY = os.getenv("LANGUAGE_API_KEY")
     POSTS_PER_PAGE = 10
     LANGUAGES = ["en", "it"]
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
 
     # Database
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or "sqlite:///" + os.path.join(

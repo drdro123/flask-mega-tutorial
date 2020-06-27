@@ -276,3 +276,14 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template("edit_profile.html", title="Edit Profile", form=form)
+
+
+@bp.route("/export_posts")
+@login_required
+def export_posts():
+    if current_user.get_task_in_progress("export_posts"):
+        flash(_("An export task is already in progress."))
+    else:
+        current_user.launch_task("export_posts", _("Exporting posts"))
+        db.session.commit()
+    return redirect(url_for("main.user", username=current_user.username))

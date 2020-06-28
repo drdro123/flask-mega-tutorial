@@ -69,6 +69,10 @@ def create_app(config_class=Config):
 
     app.register_blueprint(main_bp)
 
+    from app.api import bp as api_bp  # noqa: F402,F401
+
+    app.register_blueprint(api_bp, url_prefix="/api")
+
     if not app.debug and not app.testing:
         if app.config["MAIL_SERVER"]:
             # If set, we assume emails should be sent for errors
